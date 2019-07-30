@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lights</title>
+    <script src="./jquery-min-3.1.4.js"></script>
+    <style type="text/css">
+      html, body {
+          height: 100%;
+          margin: 0;
+      }
+
+      #main-light {
+        background-color: #26b72b;
+        min-height: 100%;
+        transition: background 0.5s linear;
+        -webkit-transition: background 0.5s linear;
+        -moz-transition: background 0.5s linear;
+      }
+
+      #shake {
+        display: none;
+        margin: auto;
+      }
+</style>
+  </head>
+  <body>
+    <div id="main-light">
+      <iframe id="shake" width="1120" height="630" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <script>
+      var totalLights = 3;
+      var lights = [
+        "#b72626", //red
+        "#26b72b", //green
+        "#b4b726", //yellow
+      ];
+
+      var shakeSrc = "https://www.youtube.com/embed/aBtnksl0NwY?start=13&autoplay=1";
+
+      function setLightColor() {
+        $("#main-light").css("background-color", lights[0]);
+      }
+
+      setLightColor();
+
+      $(document).on("keydown", function (e) {
+        var dir = e.keyCode;
+        if ( dir === 37 ) {
+          lights.unshift(lights.pop())
+          $("#shake").css("display", "none");
+          $("#shake")[0].src = "";
+        } else if ( dir === 39 ) {
+          lights.push(lights.shift())
+          $("#shake").css("display", "none");
+          $("#shake")[0].src = "";
+        } else if ( dir === 83 ) {
+          $("#shake")[0].src = shakeSrc;
+          $("#shake").css("display", "block");
+        };
+        setLightColor();
+      });
+    </script>
+  </body>
+</html>
